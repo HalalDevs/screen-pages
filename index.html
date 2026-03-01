@@ -22,6 +22,10 @@
             height: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
+            background-image: url("background.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             color: var(--text-color);
             overflow: hidden; /* No scrollbars for signage */
         }
@@ -62,20 +66,20 @@
         /* Right Side: Image/Custom Content */
         .image-container {
             flex: 1; /* Takes up 1/2 of space */
-            background: #2a2a2a;
-            border: 2px dashed #444;
-            border-radius: 12px;
+            background: transparent;
+            border: none;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             position: relative;
         }
 
         .image-container img {
             max-width: 100%;
             max-height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .placeholder-text {
@@ -103,6 +107,17 @@
             color: var(--dua-color);
             text-align: center;
             margin: 0 0 10px 0;
+            font-weight: bold;
+        }
+
+        .dua-heading-arabic {
+            font-size: 1.4rem;
+            direction: rtl;
+            font-family: 'Amiri', serif;
+            color: var(--dua-color);
+            text-align: center;
+            margin: 0 0 10px 0;
+            font-weight: bold;
         }
 
         .arabic-text {
@@ -155,7 +170,7 @@
             <div class="dua-section">
                 <p class="dua-heading">Bittgebet beim Verlassen der Moschee:</p>
                 <p class="german-text">
-                    Im Namen Allahs, Segen und Frieden seien auf dem Gesandten Allahs. <br>
+                    Im Namen Allahs, und Segen und Frieden seien auf dem Gesandten Allahs. <br>
                      O Allah, ich bitte Dich um Deine Gunst. <br>
                      O Allah, bewahre mich vor dem Satan.
                 </p>
@@ -163,7 +178,7 @@
 
             <!-- Arabic on Right -->
             <div class="dua-section">
-                <p class="arabic-text">دعاء الخروج من المسجد:</p>
+                <p class="dua-heading-arabic ">دعاء الخروج من المسجد:</p>
                 <p class="arabic-text">
                     بِسْمِ اللهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللهِ
                     <br>
