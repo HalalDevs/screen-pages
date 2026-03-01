@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Refresh every 30 mins to keep data fresh -->
+    <meta http-equiv="refresh" content="1800">
+    <title>SBB ZVV Transport Monitor</title>
+    <style>
+        /* 1. Setup the Background and Layout */
+        :root {
+            --bg-color: #1a1a1a; /* Dark colored background */
+            --text-color: #ffffff;
+            --accent-color: #eb0000; /* SBB Red */
+            --dua-color: #0082ed; /* Consistent Golden color for text */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow: hidden; /* No scrollbars for signage */
+        }
+
+        /* Container for everything */
+        .dashboard {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 2. Main Content Area (Split Screen) */
+        .main-content {
+            display: flex;
+            gap: 20px;
+            flex: 1; /* Takes up all available space */
+            min-height: 0; 
+            margin-bottom: 20px;
+        }
+
+        /* Left Side: SBB/ZVV Iframe */
+        .transport-container {
+            flex: 1; /* Takes up 1/2 of space */
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Right Side: Image/Custom Content */
+        .image-container {
+            flex: 1; /* Takes up 1/2 of space */
+            background: #2a2a2a;
+            border: 2px dashed #444;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .placeholder-text {
+            color: #666;
+            text-align: center;
+        }
+
+        /* 3. Footer Area (Side-by-Side Dua and Translation) */
+        footer {
+            flex-shrink: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end; /* Align to the bottom */
+            gap: 40px;
+            border-top: 1px solid #333;
+            padding-top: 15px;
+        }
+
+        .dua-section {
+            flex: 1;
+        }
+
+        .dua-heading {
+            font-size: 1.4rem;
+            color: var(--dua-color);
+            text-align: center;
+            margin: 0 0 10px 0;
+        }
+
+        .arabic-text {
+            font-size: 1.6rem;
+            direction: rtl;
+            font-family: 'Amiri', serif;
+            color: var(--dua-color);
+            margin: 0;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .german-text {
+            font-size: 1.4rem;
+            color: var(--dua-color);
+            text-align: center;
+            margin: 0;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1000px) {
+            .arabic-text { font-size: 1.2rem; }
+            .german-text { font-size: 1.1rem; }
+            footer { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        <main class="main-content">
+            <!-- Left Side: ZVV Iframe -->
+            <section class="transport-container">
+                <iframe 
+                    src="https://abfahrtsanzeige.zvv.ch/monitor/#eyJzdGF0aW9ucyI6W3sic3RhdGlvbklEIjoiODU5MDg1MSIsIndhbGtpbmdEaXN0YW5jZSI6OX0seyJzdGF0aW9uSUQiOiI4NTAzMTU2Iiwid2Fsa2luZ0Rpc3RhbmNlIjoxMn0seyJzdGF0aW9uSUQiOiI4NTAzMTI3Iiwid2Fsa2luZ0Rpc3RhbmNlIjoyMH1dLCJsYW5ndWFnZSI6ImRlIiwiY2xvY2siOiJhbmFsb2ciLCJzaG93Rm9vdHBhdGgiOmZhbHNlLCJvcmRlcklkIjoiMWQ3MTYyMDYtMiJ9"
+                    allowfullscreen>
+                </iframe>
+            </section>
+
+            <!-- Right Side: Your Image -->
+            <section class="image-container">
+                <img src="public-transit-map.png" alt="Public Transit Map" onerror="this.style.display='none'; document.getElementById('placeholder').style.display='block';">
+            </section>
+        </main>
+
+        <footer>
+            <!-- German on Left -->
+            <div class="dua-section">
+                <p class="dua-heading">Bittgebet beim Verlassen der Moschee:</p>
+                <p class="german-text">
+                    Im Namen Allahs, Segen und Frieden seien auf dem Gesandten Allahs. <br>
+                     O Allah, ich bitte Dich um Deine Gunst. <br>
+                     O Allah, bewahre mich vor dem Satan.
+                </p>
+            </div>
+
+            <!-- Arabic on Right -->
+            <div class="dua-section">
+                <p class="arabic-text">دعاء الخروج من المسجد:</p>
+                <p class="arabic-text">
+                    بِسْمِ اللهِ، وَالصَّلَاةُ وَالسَّلَامُ عَلَى رَسُولِ اللهِ
+                    <br>
+                     اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ فَضْلِكَ <br>
+                      اللَّهُمَّ أَجِرْنِي مِنَ الشَّيْطَانِ
+                </p>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
