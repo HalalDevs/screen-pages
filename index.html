@@ -43,14 +43,14 @@
         .main-content {
             display: flex;
             gap: 20px;
-            flex: 1; /* Takes up all available space */
-            min-height: 0; 
-            margin-bottom: 20px;
+            /* occupy top half of viewport */
+            height: 50%;
+            min-height: 0;
         }
 
         /* Left Side: SBB/ZVV Iframe */
         .transport-container {
-            flex: 1; /* Takes up 1/2 of space */
+            flex: 3; /* Takes up 3/5 of the top row */
             background: #fff;
             border-radius: 12px;
             overflow: hidden;
@@ -65,7 +65,7 @@
 
         /* Right Side: Image/Custom Content */
         .image-container {
-            flex: 1; /* Takes up 1/2 of space */
+            flex: 2; /* Takes up 2/5 of the top row */
             background: transparent;
             border: none;
             display: flex;
@@ -92,18 +92,26 @@
             flex-shrink: 0;
             display: flex;
             justify-content: space-between;
-            align-items: flex-end; /* Align to the bottom */
+            align-items: center;
             gap: 40px;
-            border-top: 1px solid #333;
-            padding-top: 15px;
+            /* removed border-top to eliminate horizontal line */
+            padding: 20px;
+            /* occupy bottom half */
+            height: 50%;
+            box-sizing: border-box;
         }
 
         .dua-section {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .dua-heading {
-            font-size: 1.4rem;
+            /* dynamic sizing: minimum 1.5rem, preferred 5vw, maximum 2.5rem */
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
             color: var(--dua-color);
             text-align: center;
             margin: 0 0 10px 0;
@@ -111,7 +119,7 @@
         }
 
         .dua-heading-arabic {
-            font-size: 1.4rem;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
             direction: rtl;
             font-family: 'Amiri', serif;
             color: var(--dua-color);
@@ -121,7 +129,8 @@
         }
 
         .arabic-text {
-            font-size: 1.6rem;
+            /* min 1.8rem, scalable with viewport width, max 3rem */
+            font-size: clamp(1.8rem, 6vw, 3rem);
             direction: rtl;
             font-family: 'Amiri', serif;
             color: var(--dua-color);
@@ -131,7 +140,7 @@
         }
 
         .german-text {
-            font-size: 1.4rem;
+            font-size: clamp(1.6rem, 4.5vw, 2.5rem);
             color: var(--dua-color);
             text-align: center;
             margin: 0;
@@ -141,9 +150,10 @@
 
         /* Responsive adjustments */
         @media (max-width: 1000px) {
-            .arabic-text { font-size: 1.2rem; }
-            .german-text { font-size: 1.1rem; }
-            footer { gap: 20px; }
+            .arabic-text { font-size: 1.8rem; }
+            .german-text { font-size: 1.6rem; }
+            .dua-heading, .dua-heading-arabic { font-size: 1.6rem; }
+            footer { gap: 20px; padding: 15px; }
         }
     </style>
 </head>
